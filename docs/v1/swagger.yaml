@@ -1,0 +1,98 @@
+basePath: :9090/api/v1
+host: 127.0.0.1:9090
+info:
+  contact: {}
+  license:
+    name: Apache 2.0
+  title: RESTful API-v1
+  version: "1.0"
+paths:
+  /formData:
+    post:
+      consumes:
+      - multipart/form-data
+      description: 发送表单数据(格式为User数据结构)，返回收集到的表单数据 json格式
+      parameters:
+      - default: '""'
+        description: 姓名
+        in: formData
+        name: userName
+        required: true
+        type: string
+      - default: '""'
+        description: 密码
+        in: formData
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"userName": "renwen", "password": "12345", "status": "OK"}'
+          schema:
+            type: string
+        "400":
+          description: '{"msg": "error"}'
+          schema:
+            type: string
+      summary: form参数解析
+      tags:
+      - JSON
+  /hello:
+    get:
+      consumes:
+      - multipart/form-data
+      description: 参数为user的数据结构
+      parameters:
+      - default: '""'
+        description: 人名
+        in: query
+        name: userName
+        required: true
+        type: string
+      - default: '""'
+        description: 密码
+        in: query
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"userName": "renwen", "password": "12345", "status": "OK"}'
+          schema:
+            type: string
+        "400":
+          description: '{"msg": "error"}'
+          schema:
+            type: string
+      summary: URL queryString参数解析
+      tags:
+      - 测试
+  /json:
+    post:
+      consumes:
+      - application/json
+      description: 输入User的数据结构参数, 返回JSON格式数据
+      parameters:
+      - description: 需要上传的JSON
+        in: body
+        name: param
+        required: true
+        schema:
+          additionalProperties: true
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回
+          schema:
+            additionalProperties: true
+            type: object
+      summary: 获取JSON的示例
+      tags:
+      - JSON
+swagger: "2.0"

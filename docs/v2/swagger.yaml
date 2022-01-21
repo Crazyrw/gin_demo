@@ -1,0 +1,84 @@
+basePath: :9091/api/v2
+definitions:
+  v2.File:
+    properties:
+      id:
+        type: integer
+      len:
+        type: integer
+      name:
+        type: string
+    type: object
+  v2.Files:
+    properties:
+      files:
+        items:
+          $ref: '#/definitions/v2.File'
+        type: array
+      len:
+        type: integer
+    type: object
+host: 127.0.0.1:9091
+info:
+  contact: {}
+  license:
+    name: Apache 2.0
+  title: RESTful API-v2
+  version: "2.0"
+paths:
+  /multiUpload:
+    post:
+      consumes:
+      - multipart/form-data
+      parameters:
+      - description: 文件
+        in: formData
+        name: files
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v2.Files'
+      summary: 多个文件上传
+      tags:
+      - 文件上传
+  /returnJson:
+    get:
+      produces:
+      - application/json
+      responses: {}
+      summary: 返回一个json
+      tags:
+      - 重定向
+  /testRedirect:
+    get:
+      description: 当访问/testRedirect的时候,直接转到百度的界面
+      responses: {}
+      summary: HTTP重定向
+      tags:
+      - 重定向
+  /upload:
+    post:
+      consumes:
+      - multipart/form-data
+      parameters:
+      - description: 文件
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v2.Files'
+      summary: 单个文件上传-application/octet-stream
+      tags:
+      - 文件上传
+swagger: "2.0"

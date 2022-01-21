@@ -1,0 +1,129 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "RESTful API-v2",
+        "contact": {},
+        "license": {
+            "name": "Apache 2.0"
+        },
+        "version": "2.0"
+    },
+    "host": "127.0.0.1:9091",
+    "basePath": ":9091/api/v2",
+    "paths": {
+        "/multiUpload": {
+            "post": {
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "文件上传"
+                ],
+                "summary": "多个文件上传",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "文件",
+                        "name": "files",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/v2.Files"
+                        }
+                    }
+                }
+            }
+        },
+        "/returnJson": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "重定向"
+                ],
+                "summary": "返回一个json",
+                "responses": {}
+            }
+        },
+        "/testRedirect": {
+            "get": {
+                "description": "当访问/testRedirect的时候,直接转到百度的界面",
+                "tags": [
+                    "重定向"
+                ],
+                "summary": "HTTP重定向",
+                "responses": {}
+            }
+        },
+        "/upload": {
+            "post": {
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "文件上传"
+                ],
+                "summary": "单个文件上传-application/octet-stream",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "文件",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/v2.Files"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "v2.File": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "len": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "v2.Files": {
+            "type": "object",
+            "properties": {
+                "files": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/v2.File"
+                    }
+                },
+                "len": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}
