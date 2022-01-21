@@ -1,0 +1,2 @@
+# gin_demo
+单项目运行多个gin服务并开放不同的swagger文档
